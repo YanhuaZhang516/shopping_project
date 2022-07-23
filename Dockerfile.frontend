@@ -1,0 +1,39 @@
+FROM alpine:3.15
+ENV NODE_VERSION=14.17.6
+
+# Create an application directory
+RUN mkdir -p /test-project/frontend
+
+# The /shopping-cart-project/frontend directory should act as the main application directory
+WORKDIR /test-project/frontend
+
+# Copy the app package and package-lock.json file
+COPY frontend/package*.json ./
+
+# Install node packages
+RUN yarn install
+
+# Copy or project directory (locally) in the current directory of our docker image
+COPY frontend/ .
+
+# Build the app
+RUN yarn watch
+
+# Expose $PORT on container.
+# We use a varibale here as the port is something that can differ on the environment.
+EXPOSE $PORT
+
+# Set host to localhost / the docker image
+ENV NUXT_HOST=0.0.0.0
+
+# Set app port
+ENV NUXT_PORT=$PORT
+
+# Set the base url
+ENV PROXY_API=$PROXY_API
+
+# Set the browser base url
+ENV PROXY_LOGIN=$PROXY_LOGIN
+
+# Start the app
+CMD [ "yarn", "watch" ]
