@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    image: shopping_backend:1.0
+    container_name: shopping_backend
+    ports:
+      - '8080:8080'
+    depends_on:
+      - postgresql
+
+  postgresql:
+    image: postgres:13
+    container_name: shopping-database
+    environment:
+      - POSTGRES_HOST=localhost
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./backend/data:/var/lib/postgresql
+
+
+
+
+
+
