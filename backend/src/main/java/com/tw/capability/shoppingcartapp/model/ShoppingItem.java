@@ -13,8 +13,8 @@ import javax.persistence.*;
 public class ShoppingItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private String id;
+    @Column(name = "id")
+    private Long id;
     @Column(name="name")
     private String name;
     @Column(name="description")

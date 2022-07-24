@@ -31,7 +31,7 @@ public class ShoppingController {
 
     @PostMapping("/items")
     @CrossOrigin
-    public String createItem(@RequestBody ShoppingItem item){
+    public Long createItem(@RequestBody ShoppingItem item){
         return shoppingService.createItem(item);
     }
 

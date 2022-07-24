@@ -22,7 +22,7 @@ public class ShoppingService {
         return itemRepository.findById(id)
             .orElseThrow(() -> new ItemNotFoundException("Item not Found!"));}
 
-    public String createItem(ShoppingItem item){
+    public Long createItem(ShoppingItem item){
         itemRepository.save(item);
         return  item.getId();
     }
