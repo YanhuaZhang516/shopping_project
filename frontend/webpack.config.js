@@ -14,14 +14,6 @@ module.exports = {
                 warnings: false,
             },
         },
-        // proxy: {
-        //     '/api': {
-        //         target: 'http://localhost:8080',
-        //         pathRewrite: {'^/api': ''},
-        //         changeOrigin: true,
-        //         secure: false,
-        //     },
-        // },
         proxy: {
             '/api/': process.env.PROXY_API || 'http://localhost:8080/'
         },
