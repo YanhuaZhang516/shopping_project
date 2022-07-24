@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react'
 import Item from './Item'
-import {tasks} from "../api/Tasks";
+import {fetchItems} from "../api/fetchItems";
 
 function ItemListComponent() {
     const [items, setItems] = useState([])
     useEffect(() => {
-        tasks().then((data) => {
+        fetchItems().then((data) => {
             setItems(data);
         });
     }, []);
