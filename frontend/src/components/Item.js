@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 
 function Item(props) {
-    const [item, setItem] = useState('');
     return(
         <div className="item" id={props.id}>
             <div className="content">
