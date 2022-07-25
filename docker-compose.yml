@@ -5,23 +5,27 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.backend
-    image: shopping_backend:1.0
-    container_name: shopping_backend
+    image: shopping-backend:1.0
+    container_name: shopping-backend
     ports:
       - '8080:8080'
     depends_on:
       - postgresql
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=yanhua.zhang
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
 
   postgresql:
     image: postgres:13
     container_name: shopping-database
     environment:
-      - POSTGRES_HOST=localhost
-      - POSTGRES_USER=postgres
+      - POSTGRES_USER=yanhua.zhang
       - POSTGRES_PASSWORD=password
       - POSTGRES_DB=postgres
     ports:
-      - '5432:5432'
+      - '5421:5432'
     volumes:
       - ./backend/data:/var/lib/postgresql
 
