@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
+
 @RestController
 public class ShoppingController {
     @Autowired
@@ -30,9 +32,17 @@ public class ShoppingController {
     }
 
     @PostMapping("/items")
-    @CrossOrigin
     public Long createItem(@RequestBody ShoppingItem item){
         return shoppingService.createItem(item);
+    }
+
+//    @DeleteMapping("/items/{id}")
+    @RequestMapping(value = "/items/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public Boolean deleteItem(@PathVariable Long id) throws ItemNotFoundException{
+        ShoppingItem item = shoppingService.findItemById(id);
+        shoppingService.deleteItem(item);
+        return true;
     }
 
 }

@@ -1,6 +1,5 @@
-import React, {useContext, useEffect, useState} from 'react'
+import React, {useContext} from 'react'
 import Item from './Item'
-import {fetchItems} from "../api/fetchItems";
 import {ItemContext} from "../store/ItemProvider";
 
 function ItemListComponent() {

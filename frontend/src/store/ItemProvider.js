@@ -15,8 +15,15 @@ const ItemProvider = ({ children })=> {
     const addItem = (item) =>{
         setItems([...items, item]);
     }
+
+    const deleteItem = (deleteItem) =>{
+        let filerItems = items.filter(item => item.id !== deleteItem.id);
+        setItems(filerItems);
+    }
+
+
     return (
-        <ItemContext.Provider value={{items,addItem}}>{children}</ItemContext.Provider>
+        <ItemContext.Provider value={{items,addItem,deleteItem}}>{children}</ItemContext.Provider>
     );
 }
 export default ItemProvider;

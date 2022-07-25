@@ -26,4 +26,8 @@ public class ShoppingService {
         itemRepository.save(item);
         return  item.getId();
     }
+
+    public void deleteItem(ShoppingItem item) {
+        itemRepository.delete(item);
+    }
 }
