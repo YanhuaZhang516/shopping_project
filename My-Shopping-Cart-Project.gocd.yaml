@@ -1,0 +1,54 @@
+format_version: 10
+pipelines:
+  My-Shopping-Cart-Project:
+    group: defaultGroup
+    label_template: ${COUNT}
+    lock_behavior: none
+    display_order: -1
+    materials:
+      git-9c9738f:
+        git: https://github.com/YanhuaZhang516/shopping_project
+        username: YanhuaZhang516
+        shallow_clone: false
+        auto_update: true
+        branch: main
+        encrypted_password: AES:DyfcxjEHDa7kCZT+f8Z6qQ==:8t5+6IcCIx2enFG2AVCv1w==
+    stages:
+    - default-stage:
+        fetch_materials: true
+        keep_artifacts: false
+        clean_workspace: false
+        approval:
+          type: success
+          allow_only_on_success: false
+        jobs:
+          run-unit-tests:
+            timeout: 0
+            tasks:
+            - exec:
+                arguments:
+                - install
+                command: yarn
+                working_directory: frontend
+                run_if: passed
+            - exec:
+                arguments:
+                - test
+                command: yarn
+                working_directory: frontend
+                run_if: passed
+          run-unit-test-backend:
+            timeout: 0
+            tasks:
+            - exec:
+                arguments:
+                - build
+                command: ./gradlew
+                working_directory: backend
+                run_if: passed
+            - exec:
+                arguments:
+                - test
+                command: ./gradlew
+                working_directory: backend
+                run_if: passed
