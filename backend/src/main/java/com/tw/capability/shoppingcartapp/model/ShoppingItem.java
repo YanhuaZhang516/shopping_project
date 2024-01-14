@@ -7,7 +7,6 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
 @Entity
 @Table(name = "shoppingitem")
 public class ShoppingItem {

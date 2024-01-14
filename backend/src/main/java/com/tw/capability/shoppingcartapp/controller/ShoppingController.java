@@ -4,13 +4,14 @@ import com.tw.capability.shoppingcartapp.Exceptions.ItemNotFoundException;
 import com.tw.capability.shoppingcartapp.model.ShoppingItem;
 import com.tw.capability.shoppingcartapp.service.ShoppingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
-import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 
 @RestController
+@CrossOrigin
 public class ShoppingController {
     @Autowired
     private final ShoppingService shoppingService;
@@ -19,26 +20,27 @@ public class ShoppingController {
         this.shoppingService = shoppingService;
     }
 
-    @GetMapping("/items")
-    @CrossOrigin
+    @GetMapping("/items/all")
     public List<ShoppingItem> getItems() {
         return shoppingService.findAllItems();
     }
 
     @GetMapping("/items/{id}")
-    @CrossOrigin
-    public ShoppingItem getItem(@PathVariable Long id) throws ItemNotFoundException {
+    public ShoppingItem getItem(@PathVariable(name="id") Long id) throws ResponseStatusException {
         return shoppingService.findItemById(id);
+    }
+    @GetMapping("/items")
+    public ShoppingItem getItemByName(@RequestParam(value="name") String name) throws ItemNotFoundException{
+        return shoppingService.findItemByName(name);
     }
 
     @PostMapping("/items")
+    @ResponseStatus(value= HttpStatus.CREATED)
     public Long createItem(@RequestBody ShoppingItem item){
         return shoppingService.createItem(item);
     }
 
-//    @DeleteMapping("/items/{id}")
-    @RequestMapping(value = "/items/{id}", method = RequestMethod.DELETE)
-    @ResponseBody
+    @DeleteMapping(value = "/items/{id}")
     public Boolean deleteItem(@PathVariable Long id) throws ItemNotFoundException{
         ShoppingItem item = shoppingService.findItemById(id);
         shoppingService.deleteItem(item);
